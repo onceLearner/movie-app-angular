@@ -1,0 +1,101 @@
+
+<div class="flex flex-col item-center space-y-4 border-2">
+
+
+
+
+<div class="flex justify-evenly items-center  p-4 ">
+    <div class="text-3xl text-blue-600 font-extrabold" >
+        Movie App
+
+    </div>
+    <form action="flex items-center border-2 p-2  space-x-6 " #form ="ngForm" (ngSubmit)="OnSubmit()" >        
+        <input  type="text" class="border-2 border-gray-400 p-3 px-6 w-96 rounded-lg" name="search" ngModel [(ngModel)]="search_name" placeholder="search..." >
+        <button class="p-3 px-8 text-sm font-medium bg-blue-600  rounded-lg text-gray-100 mx-2" >Searh</button>
+    </form>
+
+
+    <div class="flex flex-center items-center space-x-2 ">
+        <a>Mes Favoris </a>
+       
+        <a routerLink="/signup"  >S'inscrire </a>
+    </div>
+
+
+
+    
+</div>
+
+
+
+
+<div  *ngIf="isLoading" class="text-blue-800 flex item-center justify-center ">
+    <i class="material-icons text-8xl animate-spin ">autorenew</i>
+</div>
+
+
+
+<div class="grid grid-cols-4 gap-6 p-2 md:px-8 md:p-4">
+
+    <ng-container 
+
+    *ngFor="let film of films | paginate: { itemsPerPage: 8, currentPage: page }">
+
+
+
+      
+
+        <div  
+
+        
+        class="cursor-pointer tranform  hover:scale-120">
+
+        
+            <div class="film-img-container relative rounded-lg tranform  hover:scale-120">
+                <img
+                  style="width: 100%; object-fit: cover;"
+                src="{{ film.poster_path }}"
+                class="rounded-lg" alt="">
+               
+                
+                <div class="absolute top-1 right-1">
+
+                    <i 
+                    
+                    (click)="add_favorite(film)"
+
+                    class="material-icons text-lg text-gray-300 hover:text-red-500   ">
+                        favorite 
+                    </i>
+
+                    
+                </div>
+            </div>
+    
+            <div class="p-2">
+                <p    (click)="navigate_about(film.id)" class="text-lg font-medium text-gray-800  ">{{ film.title }}</p>
+    
+               
+                
+            </div>
+    
+           
+        </div>
+
+  
+        
+       
+    </ng-container>
+
+
+    
+</div>
+
+<div class="w-full flex justify-center ">
+
+<pagination-controls  (pageChange)="page = $event"></pagination-controls>
+</div>
+
+
+</div>
+
